@@ -58,12 +58,15 @@ body {
     text-align: center;
     padding: 20px;
     opacity: 0;
+    pointer-events: none;   /* prevents hidden slides from blocking clicks */
     transition: opacity 1s ease;
 }
 
 .slide.active {
     opacity: 1;
+    pointer-events: auto;   /* only active slide is clickable */
 }
+
 
 /* Envelope */
 .envelope {
