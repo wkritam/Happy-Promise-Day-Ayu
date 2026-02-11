@@ -14,7 +14,7 @@
 }
 
 body {
-    background: linear-gradient(135deg, #000000, #1a001a);
+    background: #000000;
     overflow: hidden;
     color: white;
 }
@@ -27,7 +27,7 @@ body {
     background: #ff4da6;
     transform: rotate(45deg);
     animation: float 8s linear infinite;
-    opacity: 0.7;
+    opacity: 0.6;
 }
 .heart::before,
 .heart::after {
@@ -54,6 +54,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     text-align: center;
     padding: 20px;
     opacity: 0;
@@ -66,13 +67,12 @@ body {
 
 /* Envelope */
 .envelope {
-    width: 200px;
-    height: 130px;
+    width: 220px;
+    height: 140px;
     background: #ff4da6;
     position: relative;
-    cursor: pointer;
     border-radius: 8px;
-    box-shadow: 0 0 20px #ff4da6;
+    box-shadow: 0 0 25px #ff4da6;
 }
 
 .envelope::before {
@@ -80,27 +80,34 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 0;
-    height: 0;
-    border-left: 100px solid transparent;
-    border-right: 100px solid transparent;
-    border-bottom: 65px solid #ff66b3;
+    border-left: 110px solid transparent;
+    border-right: 110px solid transparent;
+    border-bottom: 70px solid #ff66b3;
 }
 
-.envelope-text {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    font-size: 14px;
+/* Button */
+button {
+    margin-top: 30px;
+    padding: 12px 28px;
+    background: #ff4da6;
+    border: none;
+    border-radius: 25px;
     color: white;
-    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #ff1a8c;
+    transform: scale(1.05);
 }
 
 /* Promise Text */
 .promise-text {
     font-size: 28px;
-    color: #ffffff;
     max-width: 700px;
+    color: #ffffff;
     animation: fadeInUp 1s ease;
 }
 
@@ -111,15 +118,16 @@ body {
 
 /* Closing Envelope */
 .closed-envelope {
-    width: 200px;
-    height: 130px;
+    width: 220px;
+    height: 140px;
     background: #ff4da6;
     border-radius: 8px;
-    box-shadow: 0 0 20px #ff4da6;
+    box-shadow: 0 0 25px #ff4da6;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    font-size: 20px;
     color: white;
 }
 </style>
@@ -127,7 +135,6 @@ body {
 
 <body>
 
-<!-- Floating Hearts -->
 <script>
 for(let i=0;i<25;i++){
     let heart = document.createElement('div');
@@ -138,35 +145,38 @@ for(let i=0;i<25;i++){
 }
 </script>
 
-<!-- Slides -->
 <div class="slide active" id="slide0">
-    <div class="envelope" onclick="nextSlide()">
-        <div class="envelope-text">Touch to Open</div>
-    </div>
+    <div class="envelope"></div>
+    <button onclick="nextSlide()">Open</button>
 </div>
 
 <div class="slide" id="slide1">
-    <div class="promise-text">I Promise to always be the icecream to your brownie 🍨🤍</div>
+    <div class="promise-text">I Promise to always be the icecream to your brownie</div>
+    <button onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide2">
-    <div class="promise-text">I Promise to always love you the most I can 💗</div>
+    <div class="promise-text">I Promise to always love you the most I can</div>
+    <button onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide3">
-    <div class="promise-text">I Promise to always be there when you need a listener 🎧</div>
+    <div class="promise-text">I Promise to always be there when you need a listener</div>
+    <button onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide4">
-    <div class="promise-text">I Promise even after our ups and downs we will always make up 💞</div>
+    <div class="promise-text">I Promise even after our ups and downs we will always make up</div>
+    <button onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide5">
-    <div class="promise-text">I promise to always be yours and yours only cutu 💖</div>
+    <div class="promise-text">I promise to always be yours and yours only cutu</div>
+    <button onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide6">
-    <div class="closed-envelope">I Love You ❤️</div>
+    <div class="closed-envelope">I Love You</div>
 </div>
 
 <script>
@@ -179,11 +189,6 @@ function nextSlide(){
     if(current < totalSlides){
         document.getElementById('slide'+current).classList.add('active');
     }
-}
-
-// Auto next for promise slides
-for(let i=1;i<6;i++){
-    document.getElementById('slide'+i).addEventListener('click', nextSlide);
 }
 </script>
 
