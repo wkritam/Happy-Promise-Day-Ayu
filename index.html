@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,37 +10,36 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+  font-family:Arial, sans-serif;
 }
 
 body{
+  background:#000000;
+  color:#ff66b2;
   height:100vh;
   overflow:hidden;
-  background: radial-gradient(circle at top left, #2a002a, #000000 60%);
-  color:#ffe6f2;
 }
 
 /* Floating Hearts */
 .heart{
   position:absolute;
-  width:18px;
-  height:18px;
-  background:#ff4da6;
+  width:14px;
+  height:14px;
+  background:#ff1493;
   transform:rotate(45deg);
-  animation:float 10s linear infinite;
-  opacity:.5;
+  animation:float 8s linear infinite;
 }
 .heart::before,
 .heart::after{
   content:"";
   position:absolute;
-  width:18px;
-  height:18px;
-  background:#ff4da6;
+  width:14px;
+  height:14px;
+  background:#ff1493;
   border-radius:50%;
 }
-.heart::before{top:-9px;left:0;}
-.heart::after{left:-9px;top:0;}
+.heart::before{top:-7px;left:0;}
+.heart::after{left:-7px;top:0;}
 
 @keyframes float{
   0%{transform:translateY(100vh) rotate(45deg);}
@@ -57,38 +56,24 @@ body{
   align-items:center;
   flex-direction:column;
   text-align:center;
-  padding:30px;
+  padding:20px;
   opacity:0;
-  transform:scale(.95);
-  transition:all 1s ease;
+  transition:opacity 0.8s ease;
 }
 
 .slide.active{
   opacity:1;
-  transform:scale(1);
-}
-
-/* Glass Card */
-.card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.15);
-  padding:40px;
-  border-radius:25px;
-  box-shadow:0 0 40px rgba(255,0,128,.3);
-  max-width:750px;
 }
 
 /* Envelope */
 .envelope{
   width:220px;
   height:140px;
-  background:linear-gradient(135deg,#ff4da6,#ff80bf);
+  background:#ff1493;
   position:relative;
-  border-radius:12px;
   cursor:pointer;
-  box-shadow:0 0 25px #ff4da6;
-  transition:.6s;
+  border-radius:10px;
+  box-shadow:0 0 25px #ff1493;
 }
 
 .envelope::before{
@@ -100,9 +85,9 @@ body{
   height:0;
   border-left:110px solid transparent;
   border-right:110px solid transparent;
-  border-bottom:70px solid #ff4da6;
+  border-bottom:70px solid #ff1493;
+  transition:0.8s;
   transform-origin:bottom;
-  transition:1s;
 }
 
 .envelope.open::before{
@@ -110,53 +95,47 @@ body{
 }
 
 .envelope-text{
-  margin-top:25px;
-  font-size:1.2rem;
-  color:#000000;
-  letter-spacing:1px;
+  margin-top:20px;
+  font-size:20px;
+  color:#ffffff;
 }
 
-/* Message */
+/* Messages */
 .message{
-  font-size:1.9rem;
-  line-height:1.6;
-  color:#000000;
-  text-shadow:0 0 15px rgba(255,0,128,.6);
-  animation:fadeUp 1.5s ease;
-}
-
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(40px);}
-  to{opacity:1; transform:translateY(0);}
+  font-size:28px;
+  max-width:700px;
+  color:#ff66cc;
+  text-shadow:0 0 15px #ff1493;
+  margin-bottom:30px;
 }
 
 /* Button */
 .next-btn{
-  margin-top:30px;
-  padding:12px 28px;
+  padding:12px 30px;
   border:none;
-  border-radius:30px;
-  background:linear-gradient(135deg,#ff4da6,#ffffff);
-  color:black;
-  font-weight:bold;
+  border-radius:25px;
+  background:#ff1493;
+  color:white;
+  font-size:16px;
   cursor:pointer;
-  transition:.4s;
+  transition:0.3s;
 }
 .next-btn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 20px #ff4da6;
+  background:#ffffff;
+  color:#ff1493;
 }
 </style>
 </head>
+
 <body>
 
 <script>
-/* Generate Hearts */
-for(let i=0;i<35;i++){
+/* Generate floating hearts */
+for(let i=0;i<25;i++){
   let heart=document.createElement("div");
   heart.className="heart";
   heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=(6+Math.random()*6)+"s";
+  heart.style.animationDuration=(5+Math.random()*5)+"s";
   heart.style.opacity=Math.random();
   document.body.appendChild(heart);
 }
@@ -164,72 +143,59 @@ for(let i=0;i<35;i++){
 
 <!-- Slide 0 -->
 <div class="slide active" id="slide0">
-  <div class="card">
-    <div class="envelope" onclick="openEnvelope()"></div>
-    <div class="envelope-text">Touch to Open 💌</div>
-  </div>
+  <div class="envelope" onclick="openEnvelope()"></div>
+  <div class="envelope-text">Touch to Open 💌</div>
 </div>
 
-<!-- Promise Slides -->
+<!-- Slides -->
 <div class="slide" id="slide1">
-  <div class="card">
-    <div class="message">I Promise to always be the icecream to your brownie 🍨</div>
-    <button class="next-btn" onclick="nextSlide()">Next</button>
-  </div>
+  <div class="message">I Promise to always be the icecream to your brownie 🍨</div>
+  <button class="next-btn" onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide2">
-  <div class="card">
-    <div class="message">I Promise to always love you the most I can 💖</div>
-    <button class="next-btn" onclick="nextSlide()">Next</button>
-  </div>
+  <div class="message">I Promise to always love you the most I can 💖</div>
+  <button class="next-btn" onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide3">
-  <div class="card">
-    <div class="message">I Promise to always be there when you need a listener 🎧</div>
-    <button class="next-btn" onclick="nextSlide()">Next</button>
-  </div>
+  <div class="message">I Promise to always be there when you need a listener 🎧</div>
+  <button class="next-btn" onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide4">
-  <div class="card">
-    <div class="message">I Promise even after our ups and downs we will always make up 💞</div>
-    <button class="next-btn" onclick="nextSlide()">Next</button>
-  </div>
+  <div class="message">I Promise even after our ups and downs we will always make up 💞</div>
+  <button class="next-btn" onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide5">
-  <div class="card">
-    <div class="message">I promise to always be yours and yours only cutu 💘</div>
-    <button class="next-btn" onclick="nextSlide()">Next</button>
-  </div>
+  <div class="message">I promise to always be yours and yours only cutu 💘</div>
+  <button class="next-btn" onclick="nextSlide()">Next</button>
 </div>
 
 <div class="slide" id="slide6">
-  <div class="card">
-    <div class="message">I Love You ❤️</div>
-    <div class="envelope open" style="margin-top:35px;"></div>
-  </div>
+  <div class="message">I Love You ❤️</div>
+  <div class="envelope open" style="margin-top:30px;"></div>
 </div>
 
 <script>
-let current=0;
+let current = 0;
 
 function openEnvelope(){
   document.querySelector(".envelope").classList.add("open");
-  setTimeout(()=>{
+  setTimeout(function(){
     nextSlide();
-  },1000);
+  },800);
 }
 
 function nextSlide(){
   document.getElementById("slide"+current).classList.remove("active");
   current++;
-  document.getElementById("slide"+current).classList.add("active");
+  if(document.getElementById("slide"+current)){
+    document.getElementById("slide"+current).classList.add("active");
+  }
 }
 </script>
 
 </body>
 </html>
-
