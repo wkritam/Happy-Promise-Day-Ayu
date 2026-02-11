@@ -1,196 +1,190 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Promise Day</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-body{
-  background:#000;
-  color:#ff66cc;
-  height:100vh;
-  overflow:hidden;
+body {
+    background: linear-gradient(135deg, #000000, #1a001a);
+    overflow: hidden;
+    color: white;
 }
 
 /* Floating Hearts */
-.heart{
-  position:absolute;
-  width:14px;
-  height:14px;
-  background:#ff1493;
-  transform:rotate(45deg);
-  animation:float 8s linear infinite;
-  pointer-events:none;
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff4da6;
+    transform: rotate(45deg);
+    animation: float 8s linear infinite;
+    opacity: 0.7;
 }
 .heart::before,
-.heart::after{
-  content:"";
-  position:absolute;
-  width:14px;
-  height:14px;
-  background:#ff1493;
-  border-radius:50%;
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff4da6;
+    border-radius: 50%;
 }
-.heart::before{top:-7px;}
-.heart::after{left:-7px;}
+.heart::before { top: -10px; left: 0; }
+.heart::after { left: -10px; top: 0; }
 
-@keyframes float{
-  0%{transform:translateY(100vh) rotate(45deg);}
-  100%{transform:translateY(-10vh) rotate(45deg);}
+@keyframes float {
+    0% { transform: translateY(100vh) rotate(45deg); }
+    100% { transform: translateY(-10vh) rotate(45deg); }
 }
 
 /* Slides */
-.slide{
-  display:none;
-  width:100%;
-  height:100vh;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  text-align:center;
-  position:absolute;
-  top:0;
-  left:0;
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 1s ease;
 }
 
-.slide.active{
-  display:flex;
+.slide.active {
+    opacity: 1;
 }
 
-/* Envelope Button */
-.envelope-btn{
-  width:220px;
-  height:140px;
-  background:#ff1493;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  box-shadow:0 0 25px #ff1493;
-  position:relative;
+/* Envelope */
+.envelope {
+    width: 200px;
+    height: 130px;
+    background: #ff4da6;
+    position: relative;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #ff4da6;
 }
 
-.envelope-btn::before{
-  content:"";
-  position:absolute;
-  top:-70px;
-  left:0;
-  border-left:110px solid transparent;
-  border-right:110px solid transparent;
-  border-bottom:70px solid #ff1493;
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 65px solid #ff66b3;
 }
 
-.envelope-text{
-  margin-top:20px;
-  color:white;
-  font-size:20px;
+.envelope-text {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
 }
 
-/* Message */
-.message{
-  font-size:28px;
-  max-width:700px;
-  margin-bottom:30px;
-  text-shadow:0 0 15px #ff1493;
+/* Promise Text */
+.promise-text {
+    font-size: 28px;
+    color: #ffffff;
+    max-width: 700px;
+    animation: fadeInUp 1s ease;
 }
 
-.next-btn{
-  padding:12px 30px;
-  border:none;
-  border-radius:25px;
-  background:#ff1493;
-  color:white;
-  cursor:pointer;
+@keyframes fadeInUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
-.next-btn:hover{
-  background:white;
-  color:#ff1493;
+
+/* Closing Envelope */
+.closed-envelope {
+    width: 200px;
+    height: 130px;
+    background: #ff4da6;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #ff4da6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: white;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Hearts -->
+<!-- Floating Hearts -->
 <script>
 for(let i=0;i<25;i++){
-  let heart=document.createElement("div");
-  heart.className="heart";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=(5+Math.random()*5)+"s";
-  heart.style.opacity=Math.random();
-  document.body.appendChild(heart);
+    let heart = document.createElement('div');
+    heart.className='heart';
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.animationDuration=5+Math.random()*5+'s';
+    document.body.appendChild(heart);
 }
 </script>
 
 <!-- Slides -->
 <div class="slide active" id="slide0">
-  <button class="envelope-btn" id="openBtn"></button>
-  <div class="envelope-text">Touch to Open 💌</div>
+    <div class="envelope" onclick="nextSlide()">
+        <div class="envelope-text">Touch to Open</div>
+    </div>
 </div>
 
 <div class="slide" id="slide1">
-  <div class="message">I Promise to always be the icecream to your brownie 🍨</div>
-  <button class="next-btn">Next</button>
+    <div class="promise-text">I Promise to always be the icecream to your brownie 🍨🤍</div>
 </div>
 
 <div class="slide" id="slide2">
-  <div class="message">I Promise to always love you the most I can 💖</div>
-  <button class="next-btn">Next</button>
+    <div class="promise-text">I Promise to always love you the most I can 💗</div>
 </div>
 
 <div class="slide" id="slide3">
-  <div class="message">I Promise to always be there when you need a listener 🎧</div>
-  <button class="next-btn">Next</button>
+    <div class="promise-text">I Promise to always be there when you need a listener 🎧</div>
 </div>
 
 <div class="slide" id="slide4">
-  <div class="message">I Promise even after our ups and downs we will always make up 💞</div>
-  <button class="next-btn">Next</button>
+    <div class="promise-text">I Promise even after our ups and downs we will always make up 💞</div>
 </div>
 
 <div class="slide" id="slide5">
-  <div class="message">I promise to always be yours and yours only cutu 💘</div>
-  <button class="next-btn">Next</button>
+    <div class="promise-text">I promise to always be yours and yours only cutu 💖</div>
 </div>
 
 <div class="slide" id="slide6">
-  <div class="message">I Love You ❤️</div>
+    <div class="closed-envelope">I Love You ❤️</div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+let current = 0;
+let totalSlides = 7;
 
-  let current = 0;
-  const slides = document.querySelectorAll(".slide");
+function nextSlide(){
+    document.getElementById('slide'+current).classList.remove('active');
+    current++;
+    if(current < totalSlides){
+        document.getElementById('slide'+current).classList.add('active');
+    }
+}
 
-  function showSlide(index){
-    slides.forEach(s => s.classList.remove("active"));
-    slides[index].classList.add("active");
-  }
-
-  document.getElementById("openBtn").addEventListener("click", function(){
-    current = 1;
-    showSlide(current);
-  });
-
-  document.querySelectorAll(".next-btn").forEach(btn=>{
-    btn.addEventListener("click", function(){
-      current++;
-      if(current < slides.length){
-        showSlide(current);
-      }
-    });
-  });
-
-});
+// Auto next for promise slides
+for(let i=1;i<6;i++){
+    document.getElementById('slide'+i).addEventListener('click', nextSlide);
+}
 </script>
 
 </body>
