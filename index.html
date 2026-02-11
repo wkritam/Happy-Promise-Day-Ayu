@@ -14,8 +14,8 @@
 }
 
 body{
-  background:#000000;
-  color:#ff66b2;
+  background:#000;
+  color:#ff66cc;
   height:100vh;
   overflow:hidden;
 }
@@ -28,6 +28,7 @@ body{
   background:#ff1493;
   transform:rotate(45deg);
   animation:float 8s linear infinite;
+  pointer-events:none;
 }
 .heart::before,
 .heart::after{
@@ -38,8 +39,8 @@ body{
   background:#ff1493;
   border-radius:50%;
 }
-.heart::before{top:-7px;left:0;}
-.heart::after{left:-7px;top:0;}
+.heart::before{top:-7px;}
+.heart::after{left:-7px;}
 
 @keyframes float{
   0%{transform:translateY(100vh) rotate(45deg);}
@@ -48,80 +49,68 @@ body{
 
 /* Slides */
 .slide{
-  position:absolute;
+  display:none;
   width:100%;
   height:100vh;
-  display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
   text-align:center;
-  padding:20px;
-  opacity:0;
-  transition:opacity 0.8s ease;
+  position:absolute;
+  top:0;
+  left:0;
 }
 
 .slide.active{
-  opacity:1;
+  display:flex;
 }
 
-/* Envelope */
-.envelope{
+/* Envelope Button */
+.envelope-btn{
   width:220px;
   height:140px;
   background:#ff1493;
-  position:relative;
-  cursor:pointer;
+  border:none;
   border-radius:10px;
+  cursor:pointer;
   box-shadow:0 0 25px #ff1493;
+  position:relative;
 }
 
-.envelope::before{
+.envelope-btn::before{
   content:"";
   position:absolute;
   top:-70px;
   left:0;
-  width:0;
-  height:0;
   border-left:110px solid transparent;
   border-right:110px solid transparent;
   border-bottom:70px solid #ff1493;
-  transition:0.8s;
-  transform-origin:bottom;
-}
-
-.envelope.open::before{
-  transform:rotateX(180deg);
 }
 
 .envelope-text{
   margin-top:20px;
+  color:white;
   font-size:20px;
-  color:#ffffff;
 }
 
-/* Messages */
+/* Message */
 .message{
   font-size:28px;
   max-width:700px;
-  color:#ff66cc;
-  text-shadow:0 0 15px #ff1493;
   margin-bottom:30px;
+  text-shadow:0 0 15px #ff1493;
 }
 
-/* Button */
 .next-btn{
   padding:12px 30px;
   border:none;
   border-radius:25px;
   background:#ff1493;
   color:white;
-  font-size:16px;
   cursor:pointer;
-  transition:0.3s;
 }
 .next-btn:hover{
-  background:#ffffff;
+  background:white;
   color:#ff1493;
 }
 </style>
@@ -129,8 +118,8 @@ body{
 
 <body>
 
+<!-- Hearts -->
 <script>
-/* Generate floating hearts */
 for(let i=0;i<25;i++){
   let heart=document.createElement("div");
   heart.className="heart";
@@ -141,60 +130,67 @@ for(let i=0;i<25;i++){
 }
 </script>
 
-<!-- Slide 0 -->
+<!-- Slides -->
 <div class="slide active" id="slide0">
-  <div class="envelope" onclick="openEnvelope()"></div>
+  <button class="envelope-btn" id="openBtn"></button>
   <div class="envelope-text">Touch to Open 💌</div>
 </div>
 
-<!-- Slides -->
 <div class="slide" id="slide1">
   <div class="message">I Promise to always be the icecream to your brownie 🍨</div>
-  <button class="next-btn" onclick="nextSlide()">Next</button>
+  <button class="next-btn">Next</button>
 </div>
 
 <div class="slide" id="slide2">
   <div class="message">I Promise to always love you the most I can 💖</div>
-  <button class="next-btn" onclick="nextSlide()">Next</button>
+  <button class="next-btn">Next</button>
 </div>
 
 <div class="slide" id="slide3">
   <div class="message">I Promise to always be there when you need a listener 🎧</div>
-  <button class="next-btn" onclick="nextSlide()">Next</button>
+  <button class="next-btn">Next</button>
 </div>
 
 <div class="slide" id="slide4">
   <div class="message">I Promise even after our ups and downs we will always make up 💞</div>
-  <button class="next-btn" onclick="nextSlide()">Next</button>
+  <button class="next-btn">Next</button>
 </div>
 
 <div class="slide" id="slide5">
   <div class="message">I promise to always be yours and yours only cutu 💘</div>
-  <button class="next-btn" onclick="nextSlide()">Next</button>
+  <button class="next-btn">Next</button>
 </div>
 
 <div class="slide" id="slide6">
   <div class="message">I Love You ❤️</div>
-  <div class="envelope open" style="margin-top:30px;"></div>
 </div>
 
 <script>
-let current = 0;
+document.addEventListener("DOMContentLoaded", function(){
 
-function openEnvelope(){
-  document.querySelector(".envelope").classList.add("open");
-  setTimeout(function(){
-    nextSlide();
-  },800);
-}
+  let current = 0;
+  const slides = document.querySelectorAll(".slide");
 
-function nextSlide(){
-  document.getElementById("slide"+current).classList.remove("active");
-  current++;
-  if(document.getElementById("slide"+current)){
-    document.getElementById("slide"+current).classList.add("active");
+  function showSlide(index){
+    slides.forEach(s => s.classList.remove("active"));
+    slides[index].classList.add("active");
   }
-}
+
+  document.getElementById("openBtn").addEventListener("click", function(){
+    current = 1;
+    showSlide(current);
+  });
+
+  document.querySelectorAll(".next-btn").forEach(btn=>{
+    btn.addEventListener("click", function(){
+      current++;
+      if(current < slides.length){
+        showSlide(current);
+      }
+    });
+  });
+
+});
 </script>
 
 </body>
